@@ -10,8 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.Button;
 
-public class ActivityThree extends ActionBarActivity {
+public class ActivityThree extends ActionBarActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class ActivityThree extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new PlaceholderFragment(this))
                     .commit();
         }
     }
@@ -46,18 +47,30 @@ public class ActivityThree extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+        finish();
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
 
-        public PlaceholderFragment() {
+        View.OnClickListener onClickListener;
+
+        public PlaceholderFragment(View.OnClickListener onClickListener) {
+            this.onClickListener = onClickListener;
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_activity_three, container, false);
+
+            final Button button = (Button) rootView.findViewById(R.id.button);
+            button.setOnClickListener(onClickListener);
+
             return rootView;
         }
     }
