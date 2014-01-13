@@ -69,6 +69,16 @@ public class ActivityTwo extends ActionBarActivity implements View.OnClickListen
         startActivity(intent);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putInt("TEST_ID", mInt);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        mInt = savedInstanceState.getInt("TEST_ID", 99);
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
